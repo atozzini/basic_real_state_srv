@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
+
 const prisma = new PrismaClient();
 
 export default{
@@ -29,5 +30,16 @@ export default{
     }catch(error){
       return response.json({message: error.message})
     }
+  },
+  async findAllUser(request, response){
+    try{
+      const user = await prisma.user.findMany();
+
+      return response.json(user);
+
+    } catch (error) {
+      return response.json({ message: error.message })
+    }
   }
+
 }
